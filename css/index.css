@@ -1,6 +1,10 @@
 body{
   margin: 0;
 }
+div {
+  box-sizing: border-box;
+}
+
 
 .main-background {
   width: 100%;
@@ -37,11 +41,17 @@ body{
   right: 0;
   margin: auto;
   width: 150px;
+  cursor: pointer;
 }
 
-.main-how {
+.main-button:hover {
+  background: red;
+}
+
+.description-box {
   background: lightgray;
   width: 60%;
+  max-width: 600px;
   padding: 50px;
   text-align: center;
   position: relative;
