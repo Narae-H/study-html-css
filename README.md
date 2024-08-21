@@ -236,8 +236,58 @@ body {
 - .btn:focus  => 클릭 후 계속 포커스 상태일 때
 - .btn:active => 클릭 중일 때
 
-# HTML head태그
+# HTML `<head>`태그
+HTML `<head>`태그 안에 들어가는 내용 정리
 
+## 각종 CSS 파일들
+```HTML
+<head>
+  <link href="css/main.css" rel="stylesheet">
+</head>
+```
+
+## 사이트 제목
+```HTML
+<head>
+  <title>네이버입니다</title>
+</head>
+```
+
+## meta 태그
+마케팅, SEO를 위해서는 meta 태그 중요
+- charset: 인코딩 형식
+- name="description": 검색엔진에서 뜨는 설명글
+- meta name="keywords": 검색에 도움을 주는 키워드
+- name="viewport"
+  - width=device-width는 모바일 기기의 실제 폭으로 렌더링
+  - initial-scale=1: 접속 시의 화면 줌레벨 설정
+```HTML
+<head>
+  <meta charset="UTF-8">
+  <meta name="description" content="검색엔진에서 뜨는 설명글">
+  <meta name="keywords" content="검색에 도움을 줄 수 있는 키워드">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+</head>
+```
+
+## open graph
+페이스북, 트위터, 네이버 등. 링크 공유했을 때 링크 관련하여 뜨는 정보. og:, twitter: 등 소셜 페이지 직접 들어가서 참고하여 작성하면 됨.
+```HTML
+<head>
+  <meta property="og:image" content="/이미지경로.jpg">
+  <meta property="og:description" content="사이트설명">
+  <meta property="og:title" content="사이트제목">
+</head>
+```
+
+## Favicon
+웹사이트 제목 옆에 뜨는 아이콘으로 .ico가 호환성은 가장 좋고 사이즈는  32 x 32.   
+웹사이트를 바탕화면에 바로가기 추가했을 경우 뜨는 아이콘도 커스터마이징 가능 => rel="apple-touch-icon-precomposed" 
+```HTML
+<head>
+  <link rel="icon" href="아이콘경로.ico" type="image/x-icon">
+</head> 
+```
 
 # OOCSS, BEM: class 작명법
 
