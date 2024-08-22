@@ -6,6 +6,7 @@
 
 # CSS properties
 ## Background
+- background-color: RGB색상 | rgba(r코드, g코드, b코드, 투명도(0-1사이)) 
 - background-size: cover|contain
   - cover: 이미지 배경 짤려도 상관없으니 감싸고있는 공간에 빈 공간없이 배경으로 꽉 채움.
   - contain: 이미지 배경 짤리면 안됨. 감싸고 있는 공간은 남아도 됨.
@@ -43,12 +44,15 @@
 > </details>
 
 ## Position
-position 속성으로 좌표 지정하기. 공중에 떠 있는 요소. position(내 기준점 설정) + top/right/left/bottom 같이 써야함.   
-- position: relative | fixed | static
-  - relative: 기준이 내 원래 위치.
-  - static: 기준이 없음. 좌표적용 불가.
-  - fixed: 기준이 브라우저 창. 어딘가 고정되는 버튼 만들고 싶을 때.
-  - absolute: 기준이 내 부모.(가장 가까운 부모 중에 position: relative를 가진 부모)
+position 속성으로 좌표 지정하기. 공중에 떠 있는 요소.    
+position(내 기준점 설정) property 짝꿍 => top/right/left/bottom(움직일 거리) + z-index(누가 위에있냐).   
+position 속성을 줬을 때는 꼭 부모를 position:relative 로 감싸는 버릇을 하자! 그래야, css로 위치 계산하기 좋으니깐.       
+- position: static | relative | fixed | absolute | sticky
+  - static: default 값. 기본 위치.
+  - relative: 내 원래 위치 기준. 기준이 내 원래 위치라서 조금씩 옮기기 좋음.
+  - absolute: 내 부모 기준(부모가 될 수 있는 조건: 자식부터 상위로 올라가면서 부모 중에 position: relative를 가진 첫번째 부모).
+  - fixed: 브라우저 창 기준. 어딘가 고정되는 버튼 만들고 싶을 때. 스크롤 내려도 계속 고정.
+  - sticky: 스크롤 기준. 특정 지점에서 멈춤.
 
 ### 사용예시   
 1) position: relative
@@ -130,7 +134,7 @@ div {
 }
 ```
 
-## Flex
+## display: Flex
 display 속성으로, 익스플로러 11 이상에서 사용가능.
 - display: flex
 - flex-direction: column | row
@@ -169,6 +173,48 @@ display 속성으로, 익스플로러 11 이상에서 사용가능.
   flex-grow : 2;  /* 폭이 상대적으로 몇배인지 결정 */
 }
 ```
+
+## Transition
+특정 이벤트(ex. hover <- css에서는 hover이상으로 구현 힘듬. 더 하려면 JavaScript 활용해야 함)가 발생했을 때, 시작 스타일과 최종 스타일 사이에 애니매이션 효과를 주기 위해 사용.  
+
+- transition: transition-property, transition-duration, transition-timing-function, transition-delay 를 짧게 축약해 놓은 버전   
+  ex1) transition: all 2s   
+  ex2) transition: width .35s ease-in-out;   
+- transition-property: none|all|property|initial|inherit;
+  - none: 트랜잭션 효과 없음.
+  - all: default 값. 모든 property가 트랜잭션 효과 있음.
+  - property: 트랜잭션을 주고 싶은 css propery 이름을 ','로 구분하여 작성 ex) transition-property: width, height;
+- transition-duration: time|initial|inherit;
+  - time: 효과를 몇 초 동안 할 것인지 작성 ex) 3s 
+- transition-timing-function: linear|ease|ease-in|ease-out|ease-in-out|step-start|step-end|steps(int,start|end)|cubic-bezier(n,n,n,n)|initial|inherit;
+- transition-delay: time|initial|inherit;
+  - time: 몇 초 뒤에 효과가 실행될 것인지 작성 ex) 2s
+> [!NOTE]
+> <details>
+> <summary>애니메이셔 만드는 순서</summary>
+> 
+> Step 1. 시작 스타일, 최종 스타일 만들기
+> Step 2. 언제 최종 스타일로 변하는지 결정해주기 ex) 마우스를 올렸을 때(:hover)
+> Step 3. transition 으로 애니매이션 만들기
+> ```CSS
+> /* Step 1. 시작 스타일*/
+> .overlay {
+>   background-color: rgba(0, 0, 0, 0.5);
+>   opacity: 0;
+> }
+>  + 
+> .overlay:hover {      /* Step 2. 언제 변하는지 */
+>   opacity: 1;         /* Step 1. 최종 스타일 */
+>   transition: all 1s; /* Step 3. 어떻게 변하는지 */
+> }
+> ```
+> </details>
+
+## Transform
+
+
+## Translate
+
 
 
 ## Font
@@ -230,11 +276,118 @@ body {
 > </details>
 
 
-# CSS pseudo-class(:)
+# CSS Selector
+- [CSS Selector 참고](https://www.w3schools.com/cssref/css_selectors.php)
+
+| Selector                 | Example                    | Example Description                                                                 |
+|--------------------------|----------------------------|-------------------------------------------------------------------------------------|
+| `.class`                 | `.intro`                   | Selects all elements with `class="intro"`                                           |
+| `.class1.class2`         | `.name1.name2`             | Selects all elements with both `name1` and `name2` set within its class attribute   |
+| `.class1 .class2`        | `.name1 .name2`            | Selects all elements with `name2` that are a descendant of an element with `name1`  |
+| `#id`                    | `#firstname`               | Selects the element with `id="firstname"`                                           |
+| `*`                      | `*`                        | Selects all elements                                                               |
+| `element`                | `p`                        | Selects all `<p>` elements                                                          |
+| `element.class`          | `p.intro`                  | Selects all `<p>` elements with `class="intro"`                                     |
+| `element,element`        | `div, p`                   | Selects all `<div>` elements and all `<p>` elements                                 |
+| `element element`        | `div p`                    | Selects all `<p>` elements inside `<div>` elements                                  |
+| `element>element`        | `div > p`                  | Selects all `<p>` elements where the parent is a `<div>` element                    |
+| `element+element`        | `div + p`                  | Selects the first `<p>` element that is placed immediately after `<div>` elements   |
+| `element1~element2`      | `p ~ ul`                   | Selects every `<ul>` element that is preceded by a `<p>` element                    |
+| `[attribute]`            | `[target]`                 | Selects all elements with a `target` attribute                                      |
+| `[attribute=value]`      | `[target="_blank"]`        | Selects all elements with `target="_blank"`                                         |
+| `[attribute~=value]`     | `[title~="flower"]`        | Selects all elements with a `title` attribute containing the word "flower"          |
+| `[attribute\|=value]`    | `[lang\|="en"]`            | Selects all elements with a `lang` attribute value equal to `"en"` or starting with `"en-"` |
+| `[attribute^=value]`     | `a[href^="https"]`         | Selects every `<a>` element whose `href` attribute value begins with `"https"`      |
+| `[attribute$=value]`     | `a[href$=".pdf"]`          | Selects every `<a>` element whose `href` attribute value ends with `".pdf"`         |
+| `[attribute*=value]`     | `a[href*="w3schools"]`     | Selects every `<a>` element whose `href` attribute value contains the substring `"w3schools"` |
+| `:active`                | `a:active`                 | Selects the active link                                                             |
+| `::after`                | `p::after`                 | Insert something after the content of each `<p>` element                            |
+| `::before`               | `p::before`                | Insert something before the content of each `<p>` element                           |
+| `:checked`               | `input:checked`            | Selects every checked `<input>` element                                             |
+| `:default`               | `input:default`            | Selects the default `<input>` element                                               |
+| `:disabled`              | `input:disabled`           | Selects every disabled `<input>` element                                            |
+| `:empty`                 | `p:empty`                  | Selects every `<p>` element that has no children (including text nodes)             |
+| `:enabled`               | `input:enabled`            | Selects every enabled `<input>` element                                             |
+| `:first-child`           | `p:first-child`            | Selects every `<p>` element that is the first child of its parent                   |
+| `::first-letter`         | `p::first-letter`          | Selects the first letter of every `<p>` element                                     |
+| `::first-line`           | `p::first-line`            | Selects the first line of every `<p>` element                                       |
+| `:first-of-type`         | `p:first-of-type`          | Selects every `<p>` element that is the first `<p>` element of its parent           |
+| `:focus`                 | `input:focus`              | Selects the input element that has focus                                            |
+| `:fullscreen`            | `:fullscreen`              | Selects the element that is in full-screen mode                                     |
+| `:has()`                 | `h2:has(+p)`               | Selects `<h2>` elements that are immediately followed by a `<p>` element            |
+| `:hover`                 | `a:hover`                  | Selects links on mouse over                                                         |
+| `:in-range`              | `input:in-range`           | Selects input elements with a value within a specified range                        |
+| `:indeterminate`         | `input:indeterminate`      | Selects input elements that are in an indeterminate state                           |
+| `:invalid`               | `input:invalid`            | Selects all input elements with an invalid value                                    |
+| `:lang()`                | `p:lang(it)`               | Selects every `<p>` element with a `lang` attribute equal to `"it"` (Italian)       |
+| `:last-child`            | `p:last-child`             | Selects every `<p>` element that is the last child of its parent                    |
+| `:last-of-type`          | `p:last-of-type`           | Selects every `<p>` element that is the last `<p>` element of its parent            |
+| `:link`                  | `a:link`                   | Selects all unvisited links                                                         |
+| `::marker`               | `::marker`                 | Selects the markers of list items                                                   |
+| `:not()`                 | `:not(p)`                  | Selects every element that is not a `<p>` element                                   |
+| `:nth-child()`           | `p:nth-child(2)`           | Selects every `<p>` element that is the second child of its parent                  |
+| `:nth-last-child()`      | `p:nth-last-child(2)`      | Selects every `<p>` element that is the second child of its parent, counting from the last child |
+| `:nth-last-of-type()`    | `p:nth-last-of-type(2)`    | Selects every `<p>` element that is the second `<p>` element of its parent, counting from the last child |
+| `:nth-of-type()`         | `p:nth-of-type(2)`         | Selects every `<p>` element that is the second `<p>` element of its parent          |
+| `:only-of-type`          | `p:only-of-type`           | Selects every `<p>` element that is the only `<p>` element of its parent            |
+| `:only-child`            | `p:only-child`             | Selects every `<p>` element that is the only child of its parent                    |
+| `:optional`              | `input:optional`           | Selects input elements with no `"required"` attribute                               |
+| `:out-of-range`          | `input:out-of-range`       | Selects input elements with a value outside a specified range                       |
+| `::placeholder`          | `input::placeholder`       | Selects input elements with the `"placeholder"` attribute specified                 |
+| `:read-only`             | `input:read-only`          | Selects input elements with the `"readonly"` attribute specified                    |
+| `:read-write`            | `input:read-write`         | Selects input elements with the `"readonly"` attribute NOT specified                |
+| `:required`              | `input:required`           | Selects input elements with the `"required"` attribute specified                    |
+| `:root`                  | `:root`                    | Selects the document's root element                                                 |
+| `::selection`            | `::selection`              | Selects the portion of an element that is selected by a user                        |
+| `:target`                | `#news:target`             | Selects the current active `#news` element (clicked on a URL containing that anchor name) |
+| `:valid`                 | `input:valid`              | Selects all input elements with a valid value                                       |
+| `:visited`               | `a:visited`                | Selects all visited links                                                           |
+
+
+
+
+
+## CSS pseudo-class(:)
 상태에 따라서 스타일을 줄 수 있음. hover, focus, active 스타일 넣을 때 순서는 꼭 이걸로 지켜야 함.   
 - .btn:hover  => 마우스를 올려놓을 때
 - .btn:focus  => 클릭 후 계속 포커스 상태일 때
 - .btn:active => 클릭 중일 때
+
+# CSS 단위
+- px: 픽셀
+- %: 퍼센트
+- vw: 현재 브라우저 폭에 비례
+- vh: 현재 브라우저 높이에 비례
+- rem: 상대적인 단위. html 태그 폰트 사이즈(default: 16px)의 10배. 요즘은 거의 안씀.
+- em: 내 폰트 사이즈의 x배
+
+# Responsive Web
+디바이스 사이즈에 맞춰서 웹 페이지 개발
+
+## 설정
+`<head>` 에 아래 코드 추가하고 시작
+```HTML
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+```
+
+## media query
+CSS 파일 최하단에 적음. Bootstrap [responsive breakpoints](https://getbootstrap.com/docs/4.1/layout/overview/#responsive-breakpoints) 참고
+
+- Breakpoint 참고: 4개 다 쓰기 복잡하다면, 1200px 이하는 태블릿, 768px 이하는 모바일 이렇게 디자인하는게 가장 간편.
+  ```CSS
+  // Large devices (desktops, less than 1200px)
+  @media screen and (max-width: 1200px) { ... }
+
+  // Medium devices (tablets, less than 992px)
+  @media screen and (max-width: 992px) { ... }
+
+  // Small devices (landscape phones, less than 768px)
+  @media screen and (max-width : 768px) { ... }
+
+  // Extra small devices (portrait phones, less than 576px)
+  @media screen and (max-width: 576px) { ... }
+  ```
+
 
 # HTML `<head>`태그
 HTML `<head>`태그 안에 들어가는 내용 정리
@@ -370,3 +523,5 @@ class 작명할 떄 클래스명 중복되지 않고 쉽게 작명하도록 도�
   width : 100%      /* w100% + tab키 */
   ```
 
+# 디버깅
+- 크롬 개발자 도구(F12) 이용
