@@ -1,0 +1,56 @@
+@import url('https://fonts.googleapis.com/css2?family=Open+Sans:ital,wght@0,300..800;1,300..800&display=swap');
+body {
+  font-family: "Open Sans", sans-serif;
+}
+section {
+  display: flex;
+}
+button{
+  width : 130px !important;
+  height: 45px !important;
+  border: none !important;
+}
+button.btn-grey {
+  background-color: #444445;
+}
+
+#section1-overview {
+  justify-content: center;
+  background-image: linear-gradient(#4997DC, #4E61C0);
+  color: #fff;
+  height: 60vh;
+  padding-top: 5vh !important;
+}
+#section1-overview div {
+  display: flex;
+}
+#section1-overview .container.row {
+  flex-direction: row;
+  justify-content: space-between;
+}
+#section1-overview .overview-description {
+  flex-direction: column;
+  padding-right: 20%;
+}
+#section1-overview .overview-img {
+  background-image: url(../img/portfolio/iphone.png);
+  background-size: 90%;
+  background-repeat: no-repeat;
+  background-position: bottom;
+}
+
+#section2-portfolio {
+  background-color: #fff;
+  flex-direction: column;
+  align-items: center;
+  padding: 5vh 0;
+}
+#section2-portfolio .container {
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+#section2-portfolio .container .col-12{
+  text-align: center;
+  align-items: center;
+}

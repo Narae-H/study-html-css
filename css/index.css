@@ -28,7 +28,7 @@ div {
 .main-background {
   width: 100%;
   height: 500px;
-  background-image: url(./../img/water.png), url(./../img/shoes.jpg);
+  background-image: url(./../img/index/water.png), url(./../img/index/shoes.jpg);
   background-size: contain, cover;
   background-position: right, 0; 
   background-repeat: no-repeat;
@@ -125,24 +125,29 @@ div {
   margin: 10px;
 }
 
-.overlay {
+.overlay-wrap {
   position: absolute;
-  bottom: 0;
-  background-color: rgba(0, 0, 0, 0.5);
-  opacity: 1;
+  z-index: 999;
+  display: flex;
   width: 100%;
-  height: 50%;
+  height: 100%;
+  overflow: hidden;
 }
-.overlay-wrap:hover+.overlay {
-  opacity: 1;
-  bottom: 50%;
-  transition: bottom 1s ease-in-out;
+
+.overlay {
+  background-color: rgba(0, 0, 0, 0.3);
+  width: 100%;
+  height:50%;
+  margin-top:100%;
+  transition: margin-top 0.7s ease-in-out;
 }
-/* . overlay:hover {
-} */
+.overlay-wrap:hover > .overlay {
+  margin-top: 50%;
+}
 .overlay p {
   color: #fff;
   font-size: 2em;
+  text-align: center;
 }
 .shop-item img {
   width: 100%;
