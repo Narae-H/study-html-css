@@ -17,9 +17,12 @@
 - filter: brightness(70%) | grayscale()
   - brightness: 배경이미지에 밝은 필터 씌어줌. brightness()안의 숫자가 높을수록 밝아짐.
   - 해당 element안에 이미지 말고 글이나 버튼 등 있으면 전부 다 적용 됨.
-- background-image: url(url1), url(url2)
-  - 배경 여러개 겹치기 가능, 왼쪽에 있는 이미지가 먼저 나옴
-  - background-size, background-position은 콤마(,)를 이용해 두 배경에 각각 설정
+- background-image: url(url1), url(url2) | linear-gradient | radial-gradient | conic-gradient
+  - url(url1), url(url2): 배경 여러개 겹치기 가능, 왼쪽에 있는 이미지가 먼저 나옴. background-size, background-position은 콤마(,)를 이용해 두 배경에 각각 설정
+  - linear-gradient(direction, color-stop1, color-stop2, ...) ex) linear-gradient(to right, red , yellow);
+  - radial-gradient(shape size at position, start-color, ..., last-color) ex) radial-gradient(red 5%, yellow 15%, green 60%);
+  - conic-gradient([from angle] [at position,] color [degree], color [degree], ...) ex) conic-gradient(red, yellow, green, blue, black);
+-background-repeat: no-repeat | repeat | space | round;
 
 > [!NOTE]
 > <details>
@@ -174,8 +177,21 @@ display 속성으로, 익스플로러 11 이상에서 사용가능.
 }
 ```
 
-## Transition
-특정 이벤트(ex. hover <- css에서는 hover이상으로 구현 힘듬. 더 하려면 JavaScript 활용해야 함)가 발생했을 때, 시작 스타일과 최종 스타일 사이에 애니매이션 효과를 주기 위해 사용.  
+## 애니매이션 효과
+어떤 스타일 사이를 부드럽게 하기 위해서 주는 효과로, [transition](#transition), [transform](#transform), [Translate](#translate) 세 가지로 활용 가능.
+
+> [!NOTE] 
+> <details>
+> <summary> 다른 사이트에서 어떤 효과 쓰였는지 확인하는 법 </summary>
+>
+> 1. 크롬 개발자 도구(F12) > 오른쪽 점세개 메뉴 > More tools > Animations
+> 2. 웹사이트에서 애니매이션 실행해봄
+> 3. 크롬 개발자의 Animations 탭에서 기록된 애니매이션 클릭
+> 4. 어떤 속성이 변했는지 확인
+> </details>
+
+### Transition
+특정 이벤트(ex. hover <- css에서는 hover이상으로 구현 힘듬. 더 하려면 JavaScript 활용해야 함)가 발생했을 때, 시작 스타일과 최종 스타일 사이의 다른 부분이 부드럽게 전화되기 위해 사용.  
 
 - transition: transition-property, transition-duration, transition-timing-function, transition-delay 를 짧게 축약해 놓은 버전   
   ex1) transition: all 2s   
@@ -193,27 +209,33 @@ display 속성으로, 익스플로러 11 이상에서 사용가능.
 > <details>
 > <summary>애니메이셔 만드는 순서</summary>
 > 
-> Step 1. 시작 스타일, 최종 스타일 만들기
-> Step 2. 언제 최종 스타일로 변하는지 결정해주기 ex) 마우스를 올렸을 때(:hover)
-> Step 3. transition 으로 애니매이션 만들기
+> Step 1. 시작 스타일, 최종 스타일 만들기   
+> Step 2. 언제 최종 스타일로 변하는지 결정해주기 ex) 마우스를 올렸을 때(:hover)   
+> Step 3. transition 으로 애니매이션 만들기   
 > ```CSS
 > /* Step 1. 시작 스타일*/
 > .overlay {
 >   background-color: rgba(0, 0, 0, 0.5);
 >   opacity: 0;
+>   transition: all 1s; /* Step 3. 어떻게 변하는지 => 주의!!! 최종 스타일이 아닌 시작 스타일에 넣기 */
 > }
 >  + 
 > .overlay:hover {      /* Step 2. 언제 변하는지 */
 >   opacity: 1;         /* Step 1. 최종 스타일 */
->   transition: all 1s; /* Step 3. 어떻게 변하는지 */
 > }
 > ```
 > </details>
 
-## Transform
+### Transform
+특정 요소를 회전하거나 사이즈 변경 등 형태 변화를 할 때 사용.   
+- transform: none|transform-functions|initial|inherit;
+  - transform-functions: [참고링크](https://www.w3schools.com/cssref/playdemo.php?filename=playcss_transform&preval=none) ex) transform: rotate(20deg);
 
 
-## Translate
+### Translate
+특정 요소의 위치를 변경할 때 사용. [참고링크](https://www.w3schools.com/cssref/css_pr_translate.php)
+- translate: x-axis y-axis z-axis|initial|inherit;
+
 
 
 
@@ -281,17 +303,17 @@ body {
 
 | Selector                 | Example                    | Example Description                                                                 |
 |--------------------------|----------------------------|-------------------------------------------------------------------------------------|
-| `.class`                 | `.intro`                   | Selects all elements with `class="intro"`                                           |
-| `.class1.class2`         | `.name1.name2`             | Selects all elements with both `name1` and `name2` set within its class attribute   |
-| `.class1 .class2`        | `.name1 .name2`            | Selects all elements with `name2` that are a descendant of an element with `name1`  |
-| `#id`                    | `#firstname`               | Selects the element with `id="firstname"`                                           |
-| `*`                      | `*`                        | Selects all elements                                                               |
-| `element`                | `p`                        | Selects all `<p>` elements                                                          |
-| `element.class`          | `p.intro`                  | Selects all `<p>` elements with `class="intro"`                                     |
-| `element,element`        | `div, p`                   | Selects all `<div>` elements and all `<p>` elements                                 |
-| `element element`        | `div p`                    | Selects all `<p>` elements inside `<div>` elements                                  |
-| `element>element`        | `div > p`                  | Selects all `<p>` elements where the parent is a `<div>` element                    |
-| `element+element`        | `div + p`                  | Selects the first `<p>` element that is placed immediately after `<div>` elements   |
+| `.class`                 | `.intro`                   | 클래스 이름이 `intro` 인 모든 요소 선택                    |
+| `.class1.class2`         | `.name1.name2`             | 클래스 이름이 `name1`, `name2` 둘 다 갖는 모든 요소 선택   |
+| `.class1 .class2`        | `.name1 .name2`            | 클래스 이름이 `name2` 인 모든 요소를 선택하는데, 부모의 클래스 이름이 `name1`인 것    |
+| `#id`                    | `#firstname`               | 아이디 이름이 `firstname`인 모든 요소 선택                 |
+| `*`                      | `*`                        | 모든 요소 선택                                            |
+| `element`                | `p`                        | 모든 `<p>` 요소 선택                                      |
+| `element.class`          | `p.intro`                  | `<p>` 요소 중 클래스 이름이 `intro` 인 것 선택             |
+| `element,element`        | `div, p`                   | 모든 `<div>` 요소와 모든 `<p>` 요소 선택                   |
+| `element element`        | `div p`                    | 모든 `<p>` 요소 선택하는데, 부모가 `<div>` 인 것            |
+| `element>element`        | `div > p`                  | `<div>` 의 바로 아래에 있는 모든 `<p>` 태그 선택            |
+| `element+element`        | `div + p`                  | `<div>` 의 형제 중 첫번째 `<p>` 요소만 선택          |
 | `element1~element2`      | `p ~ ul`                   | Selects every `<ul>` element that is preceded by a `<p>` element                    |
 | `[attribute]`            | `[target]`                 | Selects all elements with a `target` attribute                                      |
 | `[attribute=value]`      | `[target="_blank"]`        | Selects all elements with `target="_blank"`                                         |
@@ -341,7 +363,7 @@ body {
 | `::selection`            | `::selection`              | Selects the portion of an element that is selected by a user                        |
 | `:target`                | `#news:target`             | Selects the current active `#news` element (clicked on a URL containing that anchor name) |
 | `:valid`                 | `input:valid`              | Selects all input elements with a valid value                                       |
-| `:visited`               | `a:visited`                | Selects all visited links                                                           |
+| `:visited`               | `a:visited`                | 방문했던 적이 있는 모든 a링크 |
 
 
 
