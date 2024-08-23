@@ -140,15 +140,16 @@ div {
 ## display: Flex
 display 속성으로, 익스플로러 11 이상에서 사용가능.
 - display: flex
-- flex-direction: column | row
-  - column: 세로정렬
-  - row: 가로정렬
+- flex-direction: row | column
+  - row: default 값. 1개의 row로 정렬 => 즉, 가로로 배치
+  - column: 1개의 column으로 정렬 => 즉, 아이템을 세로로 배치
 - justify-content: center
-  - center: 가로 가운데 정렬
+  - center: 주축을 기준으로 정렬. flex-direction: row => 가로 가운데 정렬, flex-direction: column => 세로 가운데 정렬
 - align-items: center | end
-  - center: 세로 가운데 정렬
+  - center: 보조축을 기준으로 정렬. flex-direction: row => 세로 가운데 저렬, flex-direction: column => 세로 가운데 정렬
   - end: 가장 밑단으로 정렬
-- flex-wrap: wrap
+- flex-wrap: nowrap | wrap 
+  - nowrap: defalut 값. 요소들이 자리가 부족할 때 비율로 줄어듬.
   - wrap: 요소의 가로 길이가 크게 되면 최대한 윈도우 사이즈에 맞추고 나머지는 밑으로 내려감
 - flex-grow: 숫자
   - 숫자: 박스크기를 비율(숫자배수)로 설정
