@@ -99,19 +99,29 @@ button.btn-grey {
   margin: 0;
   padding: 0;
 }
-/* #section4-servicies .portfolio-container img{
-  border: 10px solid #fff;
-} */
+.portfolio-container .portfolio-border {
+  border: none;
+  transition: all 0.5s ease-out;
+}
+.portfolio-container:hover .portfolio-border {
+  position: absolute;
+  z-index: 2;
+  height: 100%;
+  width: 100%;
+  border: 40px solid #fff;
+}
 #section4-servicies .portfolio-container img {
   background-size: cover;
   filter: brightness(70%);
   position: relative;
+  z-index: 1;
   width: 100%;
 }
 #section4-servicies .portfolio-container .portfolio-text-area {
   position: absolute;
+  z-index: 2;
   top: 25%;
-  left: 5%;
+  left: 10%;
   display: flex;
   flex-direction: column;
 }

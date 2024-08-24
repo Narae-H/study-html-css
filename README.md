@@ -213,6 +213,9 @@ display 속성으로, 익스플로러 11 이상에서 사용가능.
 > Step 1. 시작 스타일, 최종 스타일 만들기   
 > Step 2. 언제 최종 스타일로 변하는지 결정해주기 ex) 마우스를 올렸을 때(:hover)   
 > Step 3. transition 으로 애니매이션 만들기   
+> *주의사항: 스타일의 selector와 최종 스타일의 selector 는 "언제" 만을 제외하곤 동일해야 함. 
+> ex) 시작스타일: .overlay 최종스타일: .overlay (O)   
+> ex) 시작스타일: div.overlay 최종스타일: .overlay (X)
 > ```CSS
 > /* Step 1. 시작 스타일*/
 > .overlay {
