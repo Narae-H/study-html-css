@@ -396,7 +396,7 @@ body {
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 ```
 
-## media query
+## Media query
 CSS 파일 최하단에 적음. Bootstrap [responsive breakpoints](https://getbootstrap.com/docs/4.1/layout/overview/#responsive-breakpoints) 참고
 
 - Breakpoint 참고: 4개 다 쓰기 복잡하다면, 1200px 이하는 태블릿, 768px 이하는 모바일 이렇게 디자인하는게 가장 간편.
@@ -468,8 +468,15 @@ HTML `<head>`태그 안에 들어가는 내용 정리
 </head> 
 ```
 
-# OOCSS, BEM: class 작명법
+# CSS overwriting
+1. 같은 클래스명이나 스타일을 하단에 작성 => CSS 파일은 같은 clsss 라도 하단에 정의한 스타일 우선 적용  
+2. id, style 등 우선순위를 높여 작성 => `tag < class < id < style=""(HTML파일) < !important` 순으로 우선순위가 높음.
+3. Specificity (구체성 점수) 높여서 작성 => 셀렉터를 여러개 나열하여서 점수 높임.
 
+> [!NOTE]그래서 CSS 파일 사용할 때, div.container  div.box 이런 식으로 길게 복잡하게 쓰면 나중에 덮어쓰기가 힘듬 => 나중에 덮어쓰기할 상황을 생각하면 class 이름은 하나만 써서 작성하는게 좋은 방법.
+
+
+# OOCSS, BEM: class 작명법
 ## Object Oriented CSS (OOCSS)
 뼈대용 class, 살점용 class 각각 제작.
 
@@ -517,6 +524,30 @@ class 작명할 떄 클래스명 중복되지 않고 쉽게 작명하도록 도�
   <button class="profile__button--blue">파란버튼</button>
 </div>
 ```
+
+# Bootstrap (v5.0)
+Component Library. 기본적인 요소들을 이쁘게 디자인하여 모아놓은 라이브러리. 
+
+## 사용법
+[Bootstrap 참고](https://getbootstrap.com/docs/5.0/getting-started/introduction/)
+
+## 자주쓰는 기능
+### Layout
+- [Container](https://getbootstrap.com/docs/5.0/layout/containers/)
+- [Grid (row/col)](https://getbootstrap.com/docs/5.0/layout/grid/)
+
+### Forms
+- [Form](https://getbootstrap.com/docs/5.0/forms/form-control/)
+
+
+### Component
+- [Card](https://getbootstrap.com/docs/5.0/components/card/)
+- [Modal](https://getbootstrap.com/docs/5.0/components/modal/)
+- [Navbar](https://getbootstrap.com/docs/5.0/components/navbar/)
+
+### Utility
+- [API](https://getbootstrap.com/docs/5.0/utilities/api/)
+
 
 # 유용한 부가기능 (VS Code용)
 ## 코드 정렬
