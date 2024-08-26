@@ -308,7 +308,7 @@ body {
 > </details>
 
 
-# CSS Selector
+# CSS Selector 
 - [CSS Selector 참고](https://www.w3schools.com/cssref/css_selectors.php)
 
 | Selector                 | Example                    | Example Description                                                                 |
@@ -376,14 +376,26 @@ body {
 | `:visited`               | `a:visited`                | 방문했던 적이 있는 모든 a링크 |
 
 
-
-
-
 ## CSS pseudo-class(:)
-상태에 따라서 스타일을 줄 수 있음. hover, focus, active 스타일 넣을 때 순서는 꼭 이걸로 지켜야 함.   
+**상태**에 따라서 스타일을 줄 수 있음. hover, focus, active 스타일 넣을 때 순서는 꼭 이걸로 지켜야 함.   
 - .btn:hover  => 마우스를 올려놓을 때
 - .btn:focus  => 클릭 후 계속 포커스 상태일 때
 - .btn:active => 클릭 중일 때
+
+## CSS pseudo-element(::)
+내부의 **일부분**만 스타일 줄 때. :일때도 작동하긴 하지만, 현재는 구분하기 위해서 :: 씀.
+- .nn-class::after        => 맨 뒤에 무언가 넣고 싶을 때 ex) .nn-class::after { content: 'adding } text'
+- .nn-class::before       => 맨 앞에 무언가 넣고 싶을 때 
+- .nn-class::first-letter => 첫째 글자만 수정
+- .nn-class::first-line   => 첫째 라인만 수정
+- .input-file::file-selector-button => `<input type="file">`일 경우 버튼 스타일링
+
+### 유용한 예시
+- [CSS 만으로 버튼에 마우스 올리면 배경 어둡게하기](https://codepen.io/css-tricks/pen/dxyfA)
+- [CSS만으로 3D 느낌 리본모양만들기](https://codepen.io/team/css-tricks/pen/mVZGKa)
+- [ol 태그의 숫자 스타일링하기](https://www.456bereastreet.com/archive/201105/styling_ordered_list_numbers/)
+- [table 반응형으로 만드는 여러가지 방법](https://css-tricks.com/responsive-data-tables/)
+
 
 # CSS 단위
 - px: 픽셀
@@ -480,6 +492,62 @@ HTML `<head>`태그 안에 들어가는 내용 정리
 3. Specificity (구체성 점수) 높여서 작성 => 셀렉터를 여러개 나열하여서 점수 높임.
 
 > [!NOTE]그래서 CSS 파일 사용할 때, div.container  div.box 이런 식으로 길게 복잡하게 쓰면 나중에 덮어쓰기가 힘듬 => 나중에 덮어쓰기할 상황을 생각하면 class 이름은 하나만 써서 작성하는게 좋은 방법.
+
+# Shadow DOM
+숨겨진 HTML들로 실제로는 1개의 태그를 작성하지만 숨어있는 요소들이 있음.
+- `<input type="file">`: `<button> + <span>` 2개 생김.
+- `<input type="text" placeholder="Enter here">`: `<div></div> + <div></div>` 2개 요소 생김.
+
+## Shadow DOM 활성화 하기
+Chrome 개발자도구(F12) > Settings > Elements: Show user agent shadow DOM 선택
+
+## 활용하는 방법
+`<input type="file">`인 경우, 내부 일부 스타일만 변경하고 싶다면 [pseudo-element](#css-pseudo-class) 를 활용해서 숨겨져있는 스타일에 변경해야 함.   
+크롬에서 개발자 도구 활성화 하고 나면 pseudo라는 property 확인 가능.
+![shadow-dom-pseudo-element](https://github.com/user-attachments/assets/13ad92a6-3a59-4b1c-b7fa-9db435615edf)
+
+```CSS
+input[type=file]::-webkit-input-placeholder {
+  backbround : skyblue;
+  border: none; 
+}
+/* 또는 */
+input[type=file]::file-selector-button {
+  width: 150px;
+  height: 30px;
+  background: #fff;
+  border: 1px solid rgb(77,77,77);
+  border-radius: 10px;
+  cursor: pointer;
+}
+```
+> [!NOTE] 
+> <details>
+> <summary> -webkit- 이란?</summary>
+> 
+> Chrome, 최신버전 사파리, 최신버전 Edge에서만 적용되는 스타일.
+> -moz- : Firefox에서만 적용
+> -ms-  : Explorer에서만 적용
+> </details>
+
+- 사실 실제로는 파일 업로드 버튼을 아래와 같이 만드는게 흔함
+```HTML
+<label id="file-label" for="file-id">파일 업로드</label>
+<input type="file" id="file-id">
+```
+```CSS
+#file-id {
+  display: none;
+}
+#file-label {
+  display: flex; 
+  justify-content: center; 
+  align-items: center; 
+  width:128px; 
+  height:128px; 
+  background-color: brown;
+}
+```
 
 
 # OOCSS, BEM: class 작명법
