@@ -13,17 +13,17 @@
 </head>
 <body>
   <section id="overview">
-    <div class="container row">
-      <div id="main-info-container" class="col-8">
+    <div class="container row white-box">
+      <div id="main-info-container" class="col-lg-8 col-md-12">
         <img src="./../img/sns-profile/profile-pic.png" alt="photo">
         <div id="main-info">
           <h1 id="name">Killian Sven</h1>
           <p id="position">Front-end Designer</p>
-          <p id="location"><i class="fas fa-map-marker-alt"></i> &nbsp; 서울 마포구</p>
+          <p id="address"><i class="fas fa-map-marker-alt"></i> &nbsp; 서울 마포구</p>
           <button>Contact</button>
         </div>
       </div>
-      <div id="details-info-container" class="col-4">
+      <div id="details-info-container" class="col-lg-4 col-md-12">
         <table>
           <tbody>
             <tr>
@@ -49,32 +49,69 @@
   </section>
 
   <section id="profile">
-    <div class="container">
-      <ul class="nav nav-tabs" id="profileTab" role="tablist">
+    <div id="profile-container" class="container">
+      <ul class="nav nav-tabs nn-nav-tabs" id="profileTab" role="tablist">
         <li class="nav-item" role="presentation">
-          <button class="nav-link active nn-nav-link" id="profile-tab" data-bs-toggle="tab" data-bs-target="#profile" type="button" role="tab" aria-controls="profile" aria-selected="true">profile</button>
+          <button class="nav-link active nn-nav-link" id="profile-tab" data-bs-toggle="tab" data-bs-target="#profile" type="button" role="tab" aria-controls="profile" aria-selected="true">Profile</button>
         </li>
       </ul>
-      <div class="tab-content" id="profileTabContent">
-        <div class="tab-pane fade show active" id="profile" role="tabpanel" aria-labelledby="profile-tab">
+      <div id="profileTabContent" class="tab-content">
+        <div class="tab-pane fade show active nn-tab-pane" id="profile" role="tabpanel" aria-labelledby="profile-tab">
           <div class="container row">
-            <div id="left">
-              123
+            <div id="left" class="white-box tab-item col-lg-3 col-md-12">
+              <p class="title">WORKS</p>
+              <ul class="content">
+                <li>Landing page design</li>
+                <li>Flyer design</li>
+                <li>Vue.js To-do app</li>
+                <li>Shopping page design</li>
+              </ul>
             </div>
-            <div id="middle">
-              <div class="about">
-        
+            <div id="middle" class="white-box tab-item col-lg-6 col-md-12">
+              <div class="about-container">
+                <p class="title">ABOUT</p>
+                <p class="content">I am front-end designer who is excellent at Bootstrap, Sass, Foundation. I have dealt lots of in-house design works and outsource thigns. I foyu want to check my portfolio, please visit Killanseven.com</p>
               </div>
-              <div class="skills">
-        
+              <div class="skills-container">
+                <p class="title">SKILLS</p>
+                <p id="badges">
+                  <span class="badge rounded-pill bg-white text-dark border border-grey">HTML5</span>
+                  <span class="badge rounded-pill bg-white text-dark border border-grey">JavaScript</span>
+                  <span class="badge rounded-pill bg-white text-dark border border-grey">CSS3</span>
+                  <span class="badge rounded-pill bg-white text-dark border border-grey">Illustrator</span>
+                  <span class="badge rounded-pill bg-white text-dark border border-grey">Photoshop</span>
+                </p>
               </div>
             </div>
-            <div id="right">
-              <div class="linkout">
-          
+            <div id="right" class="col-lg-3 col-md-12">
+              <div id="right-top" class="white-box tab-item">
+                <div id="linkout-container">
+                  <p id="linkout-img"><i class="fas fa-fire"></i></p>
+                  <p id="linkout-title">Find me at Kinkedout.com</p>
+                  <button>Sign Up</button>
+                  <p id="linkeout-des">Already a member?</p>
+                </div>
               </div>
-              <div class="people">
-          
+              <div id="right-bottom">
+                <div id="people-container">
+                  <p id="people-title">People you Might Know</p>
+                  <div class="card bg-light border-0 nn-card">
+                    <img src="./../img/sns-profile/profile-pic.png" class="card-img-top" alt="Jason Derulo">
+                    <div class="card-body nn-card-body">
+                      <p class="card-text name">Jason Derulo</p>
+                      <p class="card-text position">Developer</p>
+                      <p class="card-text address"><i class="fas fa-map-marker-alt"></i> &nbsp;Seoul</p>
+                    </div>
+                  </div>
+                  <div class="card bg-light border-0 nn-card">
+                    <img src="./../img/sns-profile/profile-pic.png" class="card-img-top" alt="Logan Daul">
+                    <div class="card-body nn-card-body">
+                      <p class="card-text name">Logan Daul</p>
+                      <p class="card-text position">Developer</p>
+                      <p class="card-text address"><i class="fas fa-map-marker-alt"></i> &nbsp;Busan</p>
+                    </div>
+                  </div>
+                </div>
               </div>
             </div>
           </div>

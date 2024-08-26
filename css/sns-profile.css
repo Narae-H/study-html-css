@@ -22,13 +22,17 @@ button {
   color: #fff;
 }
 
+/* Common */
+.white-box {
+  background-color: #fff;
+  padding: 30px;
+  border-radius: 5px;
+  box-shadow: 2px 2px 5px 1px #eceef1;
+}
+
 /* overview */
 #overview .container {
-  background-color: #fff;
-  box-shadow: 2px 2px 4px #D2D7DD;
-  border-radius: 5px;
   margin-top: 8vh;
-  padding: 30px;
 }
 #main-info-container {
   align-items: center;
@@ -43,7 +47,7 @@ button {
 #position {
   margin: 0 0  1px 0;
 }
-#location {
+#address {
   color: #70B9F7;
   margin: 0 0 10px 0;
 }
@@ -63,7 +67,131 @@ button {
 #profile {
   margin-top: 8vh;
 }
-.nn-nav-link {
+#profile-container {
+  flex-direction: column; 
+}
+.nn-nav-tabs {
+  border-bottom-width: 2px;
+}
+.nav-tabs .nn-nav-link, .nav-tabs .nn-nav-link.active {
   background-color: #F7F9FC;
   color: #70B9F7;
+  font-weight:600;
+  border: none;
+  border-radius: 0;
+  border-bottom: 2px solid #70B9F7; 
+}
+#profileTabContent .container{
+  flex-wrap:nowrap;
+}
+.title {
+  font-size: 1.5em;
+  text-transform: uppercase;
+}
+.nn-tab-pane {
+  width: 100%; 
+}
+.tab-item {
+  margin: 5px;
+}
+#left {
+  flex-direction: column;
+  height: 30vh;
+}
+
+#left ul {
+  padding: 0;
+  margin: 0;
+}
+#left li {
+  list-style-type: none;
+}
+#middle {
+  flex-direction: column;
+  height: 50vh;
+}
+.about-container, .skills-container{
+  flex-direction: column;
+}
+.about-container {
+  padding-bottom: 60px;
+  border-bottom: 1px solid var(--bs-border-color);
+}
+.skills-container{
+  padding-top: 25px;
+}
+#badges span {
+  padding: 10px;
+  margin: 0 5px;
+}
+#badges span:first-child {
+  margin-left:0;
+}
+#right {
+  flex-direction: column;
+  margin:0;
+  padding: 0;
+}
+#right-top {
+  width: 100%;
+}
+#linkout-container {
+  flex-direction: column;
+  width: 100%;
+  justify-content: center;
+  align-items: center;
+}
+#linkout-img {
+  text-align: center;
+}
+#linkout-img i {
+  color: #70B9F7;
+  font-size: 5em;
+}
+#linkeout-des {
+  margin-top: 5px;
+  color: #70B9F7;
+}
+#people-container {
+  flex-direction: column;
+}
+#right-bottom{
+  margin: 20px;
+}
+#people-title {
+  border-bottom: 2px solid var(--bs-border-color);
+  padding: 10px;
+}
+.nn-card{
+  flex-direction: row;
+  align-items: center;
+} 
+.nn-card img {
+  width: 30%;
+  height: fit-content;
+}
+.nn-card-body {
+  flex-direction: column;
+}
+.nn-card-body p{
+  margin: 0;
+  padding: 0;
+}
+.card-text.name {
+  font-weight: 600;
+}
+.card-text.address {
+  color: #70B9F7; 
+}
+
+@media screen and (max-width : 992px) {
+  #main-info-container {
+    border: none;
+  }
+  #profileTabContent .container {
+    flex-wrap: wrap;
+  }
+  #right-bottom {
+    display: none;
+  }
 }

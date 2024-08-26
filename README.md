@@ -137,6 +137,12 @@ div {
 }
 ```
 
+## box-shadow
+박스에 그림자 주기.
+- box-shadow: none|h-offset v-offset blur spread color;
+  - none: Default 값. 그림자 없음.
+  - h-offset v-offset blur spread color ex) box-shadow: 0.5px 0.5px 2px 1px #eee;
+
 ## display: Flex
 display 속성으로, 익스플로러 11 이상에서 사용가능.
 - display: flex
