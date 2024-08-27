@@ -379,6 +379,17 @@ body {
 - .btn:focus  => 클릭 후 계속 포커스 상태일 때
 - .btn:active => 클릭 중일 때
 
+!!!!!!!!!!!!! 이 부분은 추가해야함.!!!!!!!!!!!!!!!!
+## Shadow DOM(::)
+Show user agent shdow DOM 활성화 하여 숨어있는 element의 pseudo property 참고하거나 user agent stylesheet 참고
+- `<input type="text" placeholder="Enter text here">`
+- `<input type="range">` = `<div>` *2  => -webkit-slider-runnable-track
+- `<progress value="0.5">`  = `<div>` * 3
+
+> [!NOTE] appearance: none => user agent stylesheet를 무시해라.
+> [!NOTE] 자바스크립트 이용하면  Shadow DOM + 커스텀 태그 만들 수도 있음 ex) `<hello></hello>`
+!!!!!!!!!!!!! 이 부분은 추가해야함.!!!!!!!!!!!!!!!!
+
 # CSS 단위
 - px: 픽셀
 - %: 퍼센트
@@ -414,6 +425,192 @@ CSS 파일 최하단에 적음. Bootstrap [responsive breakpoints](https://getbo
   @media screen and (max-width: 576px) { ... }
   ```
 
+!!!!!!!!!!!!! 이 부분은 추가해야함.!!!!!!!!!!!!!!!!
+# Sass (syntactically awesome stylesheets)
+- CSS 전처리 언어. 조건문, 함수, 변수(프로그래밍스러운 문법) 갖다 쓸 수 있음. => 반복적인 부분 쉽게 처리가능.
+- `.scss`, `.sass` 두 개 확장자 둘다 Sass 문법 사용가능 
+> [!NOTE]
+> <details>
+> <summary>.scss VS .sass</summary>
+> 
+> .sass과 .scss 은 나머지 괄호 있고 없고 차이.
+> ```Scss
+> /* .sass 파일 */
+> .background
+>   background-color: #efefef;
+> 
+> /* .scss 파일 */
+> .background {
+>   background-color: #efefef;
+> }
+> ```
+> </details>
+
+## 설치 및 기본 사용법
+웹브라우저는 .css만 읽을 수 있음 => 컴파일러 설치하여 .scss는 .css 변환하여 사용    
+1. Extension 설치  
+- VS Extensions > `Live Sass Compiler` 다운로드
+2. 파일 생성
+- .scss 파일 생성하고 CSS 와 동일한 문법으로 작성 
+3. 컴파일
+- 하단에 `Watch Sass` 누르면 자동으로 .css 파일로 자동 컴파일하고 `.css, .css.map` 파일 자동 생성. (.map 파일은 .css 파일이 어느 .scss로 부터 생성됐는지 알려주는 파일)
+4. HTML에 추가
+- 코드는 .scss에서 짜고, html에 넣을땐 자동 생성된 .css 파일 추가.
+
+
+## 사용법
+### 1. 변수
+- 웹사이트에서 자주쓰는 값 `변수($)` 생성하여 저장 ex) 메인 색상 컬러 저장, 특정 사이즈 저장
+  ```Scss
+  /* 변수선언시 $ 씀.*/
+  $main-color: #115F42; 
+  $sub-color: #efefef;
+  $font-med-size: 16px;
+
+  .background {
+    background-color: $main-color;
+    font-size: $font-med-size;
+  }
+  .box {
+    color: $sub-color;
+    font-size: ($font-med-size - 2px); /* 사칙연산 가능: 단위 맞춰서 사칙연산 안하면 에러 */
+  }
+  ```
+
+> [!NOTE]
+> <details>
+> <summary>CSS 기본 변수 문법</summary>
+> 
+> 변수 선언할 때 `--NAME` 쓰고, 사용할 때는 `var(NAME)`, 사칙연산 하고 싶으면, `calc(ELEMENTARY ARITHMETIC)`
+> ```CSS
+> : root {
+>   --main-color: #115F42;
+>   --sub-color: #efefef;
+>   --font-med-size: 16px;  
+> }
+> 
+> .background {
+>   background-color: var(--main-color);
+>   font-size: var(font-med-size);
+> }
+> .box {
+>   color: var(--sub-color);
+>   font-size: calc(20% - 2px); /* 사칙연산 가능: 단위 안맞춰도 사칙연산 가능 */
+> }
+> ``` 
+> </details>
+
+### 2. nesting
+- selector 대신에 중괄호 안에 또 중괄호 쳐서 사용하는 것 가능. => UI 뭉텅이로 관리 가능.
+- 단, 2개 이상 중첩하지 말것. 너무 복잡해짐.
+  ```Scss
+  /* 이건 SASS 문법*/
+  .navbar {
+    background-color: yellow;
+
+    ul {
+      width : 100%;
+    }
+    li {
+      color : black;
+    }
+  }
+
+  /*이건 CSS 문법*/
+  .navbar {
+    background-color: yellow;
+  }
+  .navbar ul { 
+    width : 100%; 
+  }
+  .navbar li { 
+    color : black; 
+  }
+  ```
+
+### 3. @extend
+- 스타일이 계속해서 반복될 때, 좀 더 직관적으로 중복 없앨 수 있음. 일종의 변수랑 비슷.
+- `%`라는 임시 클래스 생성 or `.`클래스 생성 > 사용하고 싶은데서 불러서 쓰기.
+  ```Scss
+  %btn {
+    width: 100px;
+    height: 100px;
+    font-size : 16px;
+    padding : 10px;
+  }
+
+  .btn-green {
+    @extend %btn;
+    background : green;
+  }
+  .btn-red {
+    @extend %btn;
+    background : red;
+  }
+  ```
+> [!NOTE]
+> <details>
+> <summary> %클래스 VS .클래스</summary>
+> 
+> `%클래스`는 임시 클래스로, 생성해놓고 다른데서 `%클래스` 갖다 쓰지 않으면 컴파일 시, css파일에 생성 안됨(단독으로 컴파일 되지 않음).   
+> 반면에 `.클래스`는 단독 사용이 가능하므로 컴파일 하면 css 파일에 생성됨.
+> </details>
+
+### 3. @mixin
+- @extend랑 비슷한게 긴 코드를 짧은 단어로 축약할 때 쓰는데, 함수 느낌으로 변수 받아서 가변적으로 수정 가능. 
+- @mixin 문법의 $ 파라미터: 긴 코드를 가변적으로 만들때 씀.
+- 반복되는 코드는 `@mixin FUNCTION_NAME(PARAMETER) { STYLESHEET }`, 가져다 쓸 때는 `@include FUNCTION_NAME(ARGUMENT)`
+  ```SCSS
+  /* 1. 특정 property의 value 변경하고 싶을 때 */
+  @mixin btn($backbround-color, $font-color) {
+    font-size : 16px;
+    padding : 10px;
+    background : $backbround-color;
+    color: $font-color;
+  }
+
+  .btn-green {
+  @include btn(#229f72, #FFFFFF);
+  }
+
+  /* 2. property 의 key값 변경하고 싶을 때: #{ $PARAMETER_NAME } */
+  @mixin btn($key, $font-weight) {
+    font-size : 16px;
+    #{ $key } : 10px;
+    background : #222222;
+    font-weight: $font-weight;
+  }
+
+  h1 {
+    @include btn( width, 900 )
+  }
+  ```
+### 4. @use
+- 다른 파일에 있는 것 갖다 쓰고 싶을 때. ex) 특정 스타일
+- 공통 파일 만들고(_reset.scss), 가져다 쓰고 쓰고 싶은 곳에서 `@use '_FILE_NAME';` 쓰면 됨. => 다른 파일에 종속되는 파일은 단독으로 컴파일 될 필요 없으므로, 구분하기 위해서 이름 만들때 `_` 로 시작.
+- `_FILENAME.scss`에서 변수/@mixin 생성하고 `@use` 사용하여 불러 올 수도 있음. 단, 변수/@mixin 사용할 때 파일명('_'를 제외한 파일명) 명시해줘야 함.
+  ```Scss
+  (_reset.scss)
+  body {
+    margin:0;
+  }
+  div {
+    box-sizing: border-box;
+  }
+
+  $main-color: #115F42;
+
+  (index.scss)
+  @use '_reset'; /* 보통 확장자는 생략. 써도 상관 없음 _reset.scss*/
+
+  div {
+    background-color: reset.$main-color; 
+  }
+  ```
+
+
+
+!!!!!!!!!!!!! 이 부분은 추가해야함.!!!!!!!!!!!!!!!!
 
 # HTML `<head>`태그
 HTML `<head>`태그 안에 들어가는 내용 정리
