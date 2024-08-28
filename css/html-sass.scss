@@ -1,0 +1,81 @@
+body {
+  margin: 0;
+  font-family: Arial, Helvetica, sans-serif;
+}
+div {
+  box-sizing: border-box;
+}
+
+/* 1. 리스트 만들기 */
+ul, li {
+  display: flex;
+}
+ul {
+  list-style-type: none;
+  flex-direction: column;
+  
+  >li {
+    width: 300px;
+    padding: 10px;
+    border: 1px solid lightgrey;
+  }
+
+  .active {
+    background-color: #007BFF;
+    color: #fff;
+  }
+}
+
+
+/* 2. Alert 만들기 */
+@mixin alert-box($main-color, $sub-color) {
+  width: 500px;
+  padding: 5px;
+  background-color: $sub-color;
+  border: 1px solid $main-color;
+  border-radius: 3px;
+  color: $main-color;
+  margin: 2px;
+}
+
+.alert-box-welldone {
+  @include alert-box(#417E56, #DFEFD8)
+}
+.alert-box-headsup {
+  @include alert-box(#7BBBDD, #D9EDF7)
+}
+.alert-box-warning {
+  @include alert-box(#937541, #FCF8E3)
+}
+
+.alert-box {
+  display: flex;
+  flex-direction: row;
+}
+.alert-box .title {
+  font-weight: 700;
+}
+
+/* 3. column 레이아웃 만들기 */
+.row {
+  display: flex;
+}
+@mixin col($ratio){
+  display: flex;
+  width: calc(100% * $ratio/12);
+  border: 1px solid black;
+}
+
+.row {
+  flex-direction: row;
+  flex-wrap: wrap;
+}
+.col-2 {
+  @include col(2);
+}
+.col-4 {
+  @include col(4);
+}
+.col-6 {
+  @include col(6);
+}
