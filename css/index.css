@@ -188,6 +188,104 @@ progress::-webkit-progress-value{
 /* Shadow DOM test */
 
 
+/* transform & animation 으로 매끄러운 애니메이션 */
+#ani-test {
+  width: 100%;
+}
+.ani-text {
+  text-align: center
+}
+.ani-text:hover {
+  animation-name: back-and-forth;
+  animation-duration: 1s;
+}
+
+@keyframes back-and-forth{
+  0% {
+    transform : translateX(0px); /* 애니메이션이 0%만큼 동작시 */
+  }
+  50% {
+    transform : translateX(-100px); /* 애니메이션이 50%만큼 동작시 */
+  }
+  50% {
+    transform : translateX(100px); /* 애니메이션이 50%만큼 동작시 */
+  }
+  100% {
+    transform : translateX(0px); /* 애니메이션이 100%만큼 동작시 */
+  }
+}
+
+.ani-button {
+  width: 200px;
+  height: 50px;
+  color: #fff;
+  font-size: 1em;
+  background-color: skyblue;
+  border: none;
+  border-radius: 5px;
+}
+
+.ani-button:hover {
+  animation-name: shake;
+  animation-duration: 0.5s;
+}
+
+@keyframes shake {
+  0% {
+    transform: rotate(0deg);
+  }
+  25% {
+    transform: rotate(8deg);
+  }
+  50% {
+    transform: rotate(-8deg);
+  }
+  75% {
+    transform: rotate(8deg);
+  }
+  100% {
+    transform: rotate(0deg);
+  }
+}
+
+.ani-rotate-container {
+  display: flex;
+  width: 100%;
+  height: 200px;
+  justify-content: center;
+  align-content: center;
+}
+
+.ani-rotate {
+  display: flex;
+  /* width: 3em; */
+  /* height: 3em; */
+  width: fit-content;
+  height: fit-content;
+  font-size: 4em;
+}
+.ani-rotate:hover {
+  color: red;
+  animation-name: rotate; 
+  animation-duration: 1s;
+}
+
+@keyframes rotate {
+  0% {
+    transform: rotate(0deg);
+  }
+  50% {
+    transform: rotate(-10deg);
+  }
+  75% {
+    font-size: 8em;
+    transform: rotate(45deg);
+  }
+  100% {
+    font-size: 8em;
+    transform: rotate(45deg);
+  }
+}
 
 @media screen and (max-width: 1200px) { 
   .explain-container {

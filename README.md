@@ -198,7 +198,7 @@ display 속성으로, 익스플로러 11 이상에서 사용가능.
 > </details>
 
 ### Transition
-특정 이벤트(ex. hover <- css에서는 hover이상으로 구현 힘듬. 더 하려면 JavaScript 활용해야 함)가 발생했을 때, 시작 스타일과 최종 스타일 사이의 다른 부분이 부드럽게 전화되기 위해 사용.  
+특정 이벤트(ex. hover <- css에서는 hover이상으로 구현 힘듬. 더 하려면 JavaScript 활용해야 함)가 발생했을 때, 시작 스타일과 최종 스타일 사이의 다른 부분이 부드럽게 전화되기 위해 사용. (상태 2가지만 존재)
 
 - transition: transition-property, transition-duration, transition-timing-function, transition-delay 를 짧게 축약해 놓은 버전   
   ex1) transition: all 2s   
@@ -236,15 +236,66 @@ display 속성으로, 익스플로러 11 이상에서 사용가능.
 > ```
 > </details>
 
-### Transform
-특정 요소를 회전하거나 사이즈 변경 등 형태 변화를 할 때 사용.   
-- transform: none|transform-functions|initial|inherit;
-  - transform-functions: [참고링크](https://www.w3schools.com/cssref/playdemo.php?filename=playcss_transform&preval=none) ex) transform: rotate(20deg);
-
-
 ### Translate
 특정 요소의 위치를 변경할 때 사용. [참고링크](https://www.w3schools.com/cssref/css_pr_translate.php)
 - translate: x-axis y-axis z-axis|initial|inherit;
+
+### Transform
+특정 요소를 회전하거나 사이즈 변경 등 형태 변화를 할 때 사용.   
+- transform: none|transform-functions [transform-functions 참고링크](https://www.w3schools.com/cssref/playdemo.php?filename=playcss_transform&preval=none)
+  - rotate(30deg)     => 30도 회전
+  - translateX(100px) => x축으로 100px 이동 (margin-left 보다 부드러운 애니매이션 만들기 가능)
+  - translateY(100px) => y축으로 100px 이동
+  - scale(0.2)        => 0.2배 키우기
+  - skew(20deg)       => 비틀기
+  
+### @keyframes   
+`@keyframes`를 transform과 같이 쓸 경우 복잡한 애니메이션 정의 가능. 예를 들면, 시작상태 -> 최종상태 -> 시작상태 -> 1초정지 -> 최종상태
+  - animation-name                  => 정의된 애니매이션 이름
+  - animation-duration              => 이동 시간
+  - animation-timing-function : linear; 
+  - animation-delay : 1s;           => 시작 전 딜레이
+  - animation-iteration-count : 3;  => 몇회 반복할것인가
+  - animation-play-state : paused;  => 애니메이션을 멈추고 싶은 경우 자바스크립트로 이거 조정
+  - animation-fill-mode: forwards;  => 애니메이션 끝난 후에 원상복구 하지말고 정지
+```HTML
+(HTML)
+<h4 class="ani-text">왔다갔다 애니메이션</h4>
+```
+```CSS
+(CSS)
+.ani-text {
+  animation-name: back-and-forth;
+  animation-duration: 1s;
+}
+@keyframes back-and-forth{
+  0% {
+    transform : translateX(0px); /* 애니메이션이 0%만큼 동작시 */
+  }
+  50% {
+    transform : translateX(-100px); /* 애니메이션이 50%만큼 동작시 */
+  }
+  50% {
+    transform : translateX(100px); /* 애니메이션이 50%만큼 동작시 */
+  }
+  100% {
+    transform : translateX(0px); /* 애니메이션이 100%만큼 동작시 */
+  }
+}
+```
+
+> [!NOTE]
+> <details>
+> <summary>애니메이션 쓸 때, transform 쓰면 좋은이유? (transform이 더 빠름)</summary>
+>
+> - 크롬같은 웹브라우저들은 html css 코드를 2D 그래픽으로 바꿔주는 프로그램
+> - html css 코드를 그래픽으로 바꿀 때 layout 잡기 -> 색칠하기 -> transform 적용하기 순서로 동작.
+> - 그래서, layout이 바뀌면 layout 부터 transform 까지 쭉 다시 렌더링해야해서 시간이 오래걸림. 
+> - 반면에 transform이 바뀌면 transform 부분만 다시 렌더링
+> </details>
+
+
+
 
 
 
@@ -382,16 +433,21 @@ body {
 - .btn:focus  => 클릭 후 계속 포커스 상태일 때
 - .btn:active => 클릭 중일 때
 
-!!!!!!!!!!!!! 이 부분은 추가해야함.!!!!!!!!!!!!!!!!
 ## Shadow DOM(::)
-Show user agent shdow DOM 활성화 하여 숨어있는 element의 pseudo property 참고하거나 user agent stylesheet 참고
-- `<input type="text" placeholder="Enter text here">`
-- `<input type="range">` = `<div>` *2  => -webkit-slider-runnable-track
+Chrome 개발자도구 에서 Show user agent shdow DOM 활성화 하여 숨어있는 element의 pseudo property 참고하거나 user agent stylesheet 참고하여 shadow DOM 속성 변경 가능.
+
+### Shadow DOM 활성화
+1. Chrome 개발자 도구(F12) > Settings 
+2. Elements: Show user agent shadow DOM 선택
+
+### 예시
+- `<input type="file">` = `<input/>` + `<span/>`
+- `<input type="text" placeholder="Enter text here">` = `<input/>` + `<span/>`
+- `<input type="range">` = `<div>` *2  
 - `<progress value="0.5">`  = `<div>` * 3
 
 > [!NOTE] appearance: none => user agent stylesheet를 무시해라.
 > [!NOTE] 자바스크립트 이용하면  Shadow DOM + 커스텀 태그 만들 수도 있음 ex) `<hello></hello>`
-!!!!!!!!!!!!! 이 부분은 추가해야함.!!!!!!!!!!!!!!!!
 
 # CSS 단위
 - px: 픽셀
@@ -428,7 +484,7 @@ CSS 파일 최하단에 적음. Bootstrap [responsive breakpoints](https://getbo
   @media screen and (max-width: 576px) { ... }
   ```
 
-!!!!!!!!!!!!! 이 부분은 추가해야함.!!!!!!!!!!!!!!!!
+
 # Sass (syntactically awesome stylesheets)
 - CSS 전처리 언어. 조건문, 함수, 변수(프로그래밍스러운 문법) 갖다 쓸 수 있음. => 반복적인 부분 쉽게 처리가능.
 - `.scss`, `.sass` 두 개 확장자 둘다 Sass 문법 사용가능 
@@ -612,9 +668,6 @@ CSS 파일 최하단에 적음. Bootstrap [responsive breakpoints](https://getbo
   ```
 
 
-
-!!!!!!!!!!!!! 이 부분은 추가해야함.!!!!!!!!!!!!!!!!
-
 # HTML `<head>`태그
 HTML `<head>`태그 안에 들어가는 내용 정리
 
@@ -667,6 +720,66 @@ HTML `<head>`태그 안에 들어가는 내용 정리
   <link rel="icon" href="아이콘경로.ico" type="image/x-icon">
 </head> 
 ```
+
+# HTML video, audio
+
+## 비디오 넣는 법
+- controls => 비디오 재생 버튼
+- autoplay + muted => 자동재생
+- preload: none | auto | metadata => 미리 다운할지 안할지 여부
+- poster="이미지경로" => 썸네일 설정
+- loop => 비디오 무한 재생
+  - 기본 사용법
+  ```HTML
+    <!-- 기본적인 비디오 넣는법 1-->
+    <video src="./../img/index/bridge.mp4" controls></video>
+
+    <!-- 기본적인 비디오 넣는법 2: <source>에서 비디오 확장자 따라서 설정 가능-->
+    <video controls autoplay muted>
+      <source src="./../img/index/bridge.mp4" type="video/mp4">
+    </video>
+  ```
+  - 비디오 배경 넣는법
+  ```HTML
+  (HTML 파일)
+  <div class="video-box">
+    <video class="video-container" autoplay muted loop>
+      <source src="img/bridge.mp4" type="video/mp4">
+    </video>
+    <h3 class="video-title">Buy Our Shoes!</h3>
+  </div>
+  ```
+  ```CSS
+  (CSS 파일)
+  .video-box {
+    height: 500px;
+    width: 100%;
+    overflow: hidden;
+    position: relative;
+  }
+
+  .video-container {
+    position: absolute;
+    width : 100%;
+    top: 50%;
+    left: 50%;
+    transform : translate(-50%,-50%);
+    z-index: -1;
+  }
+  ```
+
+## 오디오 넣는 법
+- controls =>재생버튼 생성
+- muted => 음소거
+- preload => 미리 다운로드
+
+```HTML
+<audio controls muted>
+  <source src="bass.mp3">
+</audio>
+```
+
+
 
 # CSS overwriting
 1. 같은 클래스명이나 스타일을 하단에 작성 => CSS 파일은 같은 clsss 라도 하단에 정의한 스타일 우선 적용  
