@@ -1,0 +1,96 @@
+@charset "UTF-8";
+body {
+  margin: 0;
+  font-family: Arial, Helvetica, sans-serif;
+}
+
+div {
+  box-sizing: border-box;
+}
+
+/* 1. 리스트 만들기 */
+ul, li {
+  display: flex;
+}
+
+ul {
+  list-style-type: none;
+  flex-direction: column;
+}
+ul > li {
+  width: 300px;
+  padding: 10px;
+  border: 1px solid lightgrey;
+}
+ul .active {
+  background-color: #007BFF;
+  color: #fff;
+}
+
+/* 2. Alert 만들기 */
+.alert-box-welldone {
+  width: 500px;
+  padding: 5px;
+  background-color: #DFEFD8;
+  border: 1px solid #417E56;
+  border-radius: 3px;
+  color: #417E56;
+  margin: 2px;
+}
+
+.alert-box-headsup {
+  width: 500px;
+  padding: 5px;
+  background-color: #D9EDF7;
+  border: 1px solid #7BBBDD;
+  border-radius: 3px;
+  color: #7BBBDD;
+  margin: 2px;
+}
+
+.alert-box-warning {
+  width: 500px;
+  padding: 5px;
+  background-color: #FCF8E3;
+  border: 1px solid #937541;
+  border-radius: 3px;
+  color: #937541;
+  margin: 2px;
+}
+
+.alert-box {
+  display: flex;
+  flex-direction: row;
+}
+
+.alert-box .title {
+  font-weight: 700;
+}
+
+/* 3. column 레이아웃 만들기 */
+.row {
+  display: flex;
+}
+
+.row {
+  flex-direction: row;
+  flex-wrap: wrap;
+}
+
+.col-2 {
+  display: flex;
+  width: 16.6666666667%;
+  border: 1px solid black;
+}
+
+.col-4 {
+  display: flex;
+  width: 33.3333333333%;
+  border: 1px solid black;
+}
+
+.col-6 {
+  display: flex;
+  width: 50%;
+  border: 1px solid black;
+}/*# sourceMappingURL=html-sass.css.map */
