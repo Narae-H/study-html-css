@@ -183,6 +183,102 @@ display 속성으로, 익스플로러 11 이상에서 사용가능.
   flex-grow : 2;  /* 폭이 상대적으로 몇배인지 결정 */
 }
 ```
+## Grid layout
+레이아웃을 쉽게 잡기 위해서 사용. Explorer 에서는 사용 안되고 그 이상만 가능.
+
+### 사용법
+부모 컨테이너에 `display: grid, + grid-template-columns + grid-template-rows` 주면됨.
+```HTML
+<div class="grid-container">
+  <div></div>
+  <div></div>
+  <div></div>
+  <div></div>
+  <div></div>
+  <div></div>
+</div>
+```
+
+```CSS
+.grid-container {
+  display: grid;
+  grid-template-columns: 100px 100px 100px;
+  grid-template-rows: 100px 100px;
+}
+```
+
+### Grid layout에서 사용되는 단위: fr
+- fr (fractional unit): 여유 공간을 비율로 나눠 설정. %와 비슷해 보일 수 있으나 실제로는 다름.
+
+### Grid properties
+  - grid-gap: INTEGER => 공간 사이를 띄어주고 싶을 때 사용
+
+### Grid 채우는 법
+ - grid-column/grid-row 이용 (자식의 높이와 폭 조정)
+   - grid-column: 시작번호/끝번호=> 지정된 세로선(시작번호부터 끝번호까지)까지 grid를 채움. 즉, 가로로 늘려줌.
+   - grid-row: 시작번호/끝번호 => 지정된 가로선(시작번호부터 끝번호까지)까지 grid를 채움. 즉, 세로로 늘려줌.
+    ```HTML
+    (HTML)
+    <div class="grid-container">
+      <div class="grid-nav">헤더</div>
+      <div class="grid-sidebar">사이드바</div>
+      <div class="grid-content">컨텐츠</div>
+      <div></div>
+    </div>
+    ```
+    ```CSS
+    (CSS)
+    .grid-container {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      grid-template-rows: 100px 100px;
+    }
+    .grid-nav {
+      grid-column: 1/3
+    }
+    .grid-sidebar {
+      grid-row: 2/3
+    }
+    .grid-content {
+      grid-column: 2/3;
+      grid-row: 2/3;
+    }
+    ```
+
+  - grid-area 이용 (자식에게 이름 부여하고 부모가 배치)
+    ```HTML
+    (HTML)
+    <div class="grid-container">
+      <div class="grid-nav">헤더</div>
+      <div class="grid-sidebar">사이드바</div>
+      <div class="grid-content">컨텐츠</div>
+      <div></div>
+      <div></div>
+      <div></div>
+      <div></div>
+      <div></div>
+      <div></div>
+    </div>
+  ```
+  ```CSS
+  (CSS)
+  .grid-container {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    grid-template-rows: 100px 100px 100px;
+    grid-template-areas: 
+      "header header header"
+      "side . ."             /* 빈공간으로 둘때는 '.'*/
+      "side . ."
+  }
+  .grid-nav {
+    grid-area: header;
+  }
+  .grid-sidebar {
+    grid-area: side;
+  }
+  ```
+
 
 ## 애니매이션 효과
 어떤 스타일 사이를 부드럽게 하기 위해서 주는 효과로, [transition](#transition), [transform](#transform), [Translate](#translate) 세 가지로 활용 가능.
@@ -241,8 +337,9 @@ display 속성으로, 익스플로러 11 이상에서 사용가능.
 - translate: x-axis y-axis z-axis|initial|inherit;
 
 ### Transform
-특정 요소를 회전하거나 사이즈 변경 등 형태 변화를 할 때 사용.   
-- transform: none|transform-functions [transform-functions 참고링크](https://www.w3schools.com/cssref/playdemo.php?filename=playcss_transform&preval=none)
+특정 요소를 회전하거나 사이즈 변경 등 형태 변화를 할 때 사용. [참고링크](https://www.w3schools.com/cssref/playdemo.php?filename=playcss_transform&preval=none)  
+- transform: none|transform-functions; 
+- transform: rotate(10deg) translateX(30px);  => 한번에 두개 쓸 때 
   - rotate(30deg)     => 30도 회전
   - translateX(100px) => x축으로 100px 이동 (margin-left 보다 부드러운 애니매이션 만들기 가능)
   - translateY(100px) => y축으로 100px 이동
@@ -253,11 +350,15 @@ display 속성으로, 익스플로러 11 이상에서 사용가능.
 `@keyframes`를 transform과 같이 쓸 경우 복잡한 애니메이션 정의 가능. 예를 들면, 시작상태 -> 최종상태 -> 시작상태 -> 1초정지 -> 최종상태
   - animation-name                  => 정의된 애니매이션 이름
   - animation-duration              => 이동 시간
-  - animation-timing-function : linear; 
-  - animation-delay : 1s;           => 시작 전 딜레이
-  - animation-iteration-count : 3;  => 몇회 반복할것인가
-  - animation-play-state : paused;  => 애니메이션을 멈추고 싶은 경우 자바스크립트로 이거 조정
-  - animation-fill-mode: forwards;  => 애니메이션 끝난 후에 원상복구 하지말고 정지
+  - animation-timing-function: linear|ease|ease-in|ease-out|ease-in-out 
+  - animation-delay: 1s             => 시작 전 딜레이
+  - animation-iteration-count: 3    => 몇회 반복할것인가
+  - animation-play-state: paused    => 애니메이션을 멈추고 싶은 경우 자바스크립트로 이거 조정
+  - animation-fill-mode: none|forwards|backwards|both  => 애니메이션 끝난 후에 마지막 상태
+    - none: default 값.
+    - forward: 마지막 상태 유지
+    - backward: 처음 상태 값으로 유지
+    - both: forwards, backwards를 모두 유지
 ```HTML
 (HTML)
 <h4 class="ani-text">왔다갔다 애니메이션</h4>
@@ -293,12 +394,6 @@ display 속성으로, 익스플로러 11 이상에서 사용가능.
 > - 그래서, layout이 바뀌면 layout 부터 transform 까지 쭉 다시 렌더링해야해서 시간이 오래걸림. 
 > - 반면에 transform이 바뀌면 transform 부분만 다시 렌더링
 > </details>
-
-
-
-
-
-
 
 ## Font
 ### 사용예시
@@ -456,6 +551,8 @@ Chrome 개발자도구 에서 Show user agent shdow DOM 활성화 하여 숨어�
 - vh: 현재 브라우저 높이에 비례
 - rem: 상대적인 단위. html 태그 폰트 사이즈(default: 16px)의 10배. 요즘은 거의 안씀.
 - em: 내 폰트 사이즈의 x배
+
+
 
 # Responsive Web
 디바이스 사이즈에 맞춰서 웹 페이지 개발
