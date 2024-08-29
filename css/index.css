@@ -248,6 +248,7 @@ progress::-webkit-progress-value{
   }
 }
 
+
 .ani-rotate-container {
   display: flex;
   width: 100%;
@@ -258,34 +259,79 @@ progress::-webkit-progress-value{
 
 .ani-rotate {
   display: flex;
-  /* width: 3em; */
-  /* height: 3em; */
   width: fit-content;
   height: fit-content;
   font-size: 4em;
 }
 .ani-rotate:hover {
-  color: red;
   animation-name: rotate; 
   animation-duration: 1s;
+  animation-fill-mode: forwards;
 }
-
 @keyframes rotate {
   0% {
     transform: rotate(0deg);
   }
-  50% {
+  25% {
     transform: rotate(-10deg);
   }
-  75% {
-    font-size: 8em;
-    transform: rotate(45deg);
-  }
   100% {
-    font-size: 8em;
-    transform: rotate(45deg);
+    transform: scale(1.5) rotate(45deg);
   }
 }
+
+#sliding-menu {
+  display: flex;
+  flex-direction: column;
+  align-items: right;
+  padding: 60px;
+  position: fixed;
+  z-index: 999;
+  bottom: 0;
+  background-color: #000;
+  width: 400px;
+  height: 100%;
+  color: #fff;
+  transform: translateX(-150px);
+  transition: all 0.5s ease-in-out
+}
+#menu-header p {
+  font-size: 2em;
+  text-align: right;
+}
+#menu-contents {
+  display: flex;
+  justify-content: left;
+  width: 100%;
+}
+
+#sliding-menu:hover {
+  align-items:center;
+  transform: translateX(0px);
+}
+#sliding-menu:hover #menu-contents{
+  animation-name: menu;
+  animation-duration: 1s;
+  animation-timing-function: ease-out;
+  animation-fill-mode: forwards;
+}
+.menu-item {
+  font-size: 1.5em;
+}
+
+@keyframes menu {
+  0%{
+    transform:skewX(0deg);
+  }
+  50%{
+    transform: translateX(200px) skewX(-60deg);
+  }
+  100%{
+    transform: translateX(110px) skewX(0deg);
+  }
+}
+
+
 
 @media screen and (max-width: 1200px) { 
   .explain-container {
