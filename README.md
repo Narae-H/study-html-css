@@ -55,10 +55,10 @@ position 속성을 줬을 때는 꼭 부모를 position:relative 로 감싸는 �
   - relative: 내 원래 위치 기준. 기준이 내 원래 위치라서 조금씩 옮기기 좋음.
   - absolute: 내 부모 기준(부모가 될 수 있는 조건: 자식부터 상위로 올라가면서 부모 중에 position: relative를 가진 첫번째 부모).
   - fixed: 브라우저 창 기준. 어딘가 고정되는 버튼 만들고 싶을 때. 스크롤 내려도 계속 고정.
-  - sticky: 스크롤 기준. 특정 지점에서 멈춤.
+  - sticky: 스크롤 기준으로 고정되었다가 부모박스를 넘어서면 해제. 특정 지점에서 멈춤.
 
 ### 사용예시   
-1) position: relative
+1) `position: relative`
   ```HTML
   <head>
     <style>
@@ -76,7 +76,7 @@ position 속성을 줬을 때는 꼭 부모를 position:relative 로 감싸는 �
     </div>
   </body>
   ```
-2) position: absolute
+2) `position: absolute`
   ```HTML
   <head>
     <style>
@@ -98,7 +98,8 @@ position 속성을 줬을 때는 꼭 부모를 position:relative 로 감싸는 �
   </body>
   ```
 
-3) 'position: absolute' 가운데 정렬 => left: 0; right: 0; margin: auto; width: 적당히;
+3) `position: absolute` 
+- 가운데 정렬: left: 0; right: 0; margin: auto; width: 적당히;
   ```HTML
   <head>
     <style>
@@ -122,6 +123,47 @@ position 속성을 줬을 때는 꼭 부모를 position:relative 로 감싸는 �
     </div>
   </body>
   ```
+
+4) `position: sticky`
+- position: sticky 쓸 때는, 어디에 고정될지 top 도 설정해줘야 함.
+```HTML
+  <div class="grey">
+    <div class="image">
+      <img src="./../img/sticky/appletv.jpg">
+    </div>
+    <div class="text">
+      Lorem ipsum dolor sit amet consectetur adipisicing elit. Odio, autem, adipisci ut sit ducimus pariatur neque quo aliquid quia aut veritatis, veniam iure! Harum ad eos inventore unde. Eaque, velit?
+    </div>
+  </div>
+```
+
+```CSS
+body {
+  background-color: grey;
+  height: 3000px;
+}
+
+.grey {
+  background-color: lightgray;
+  height: 2000px;
+  margin-top: 500px;
+}
+.image{
+  float: right;
+  width: 400px;
+  position: sticky;
+  top: 100px;
+}
+img {
+  width: 100%;
+}
+.text {
+  float: left;
+  width: 300px;
+}
+```
+
+
 
 ## box-sizing
 div 박스의 width를 주게되면, padding, border 고려하지 않고 안쪽 부분만 실제 width로 설정. 근데, 전부 다 합친 사이즈를 width로 주고 싶다면 사용 할 수 있는게 box-sizing   

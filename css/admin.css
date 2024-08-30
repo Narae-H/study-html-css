@@ -1,0 +1,41 @@
+:root {
+  --na-blue: #494bb3;
+  --na-darkgrey: #343a40;
+  --na-lightblue: #8dcfeb;
+  --na-green: #40c95a;
+  --na-yellow: #fecc59;
+}
+
+
+#left-nav {
+  display: flex;
+  flex-direction: column;
+  align-content: center;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 50px;
+  height: 100%;
+  background-color: var(--na-blue);
+  padding: 10px;
+}
+.nav-item {
+  display: flex;
+  padding: 10px;
+  margin: 10px 0;
+  justify-content: center;
+  align-content: center;
+  color: #fff;
+  cursor: pointer;
+}
+
+#header {
+  display: flex;
+  position: relative;
+  margin-left: 50px;
+  width: calc(100% - 50px);
+}
+#header nav {
+  width: 100%;
+  border: 1px solid red;
+} 
