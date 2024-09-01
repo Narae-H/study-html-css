@@ -249,6 +249,72 @@ display 속성으로, 익스플로러 11 이상에서 사용가능.
 }
 ```
 
+## float
+화면 큰 레이아웃 구상할 때 어느 부분에 고정된 요소 들이 있다면 float로 화면 구성 잡는게 좀 더 쉬움( position: absolute/fixed의 경우 부모가 position:relative라고 하더라도 width & height 이 자식 컨텐츠 만큼 가져올 수 없고 무조건 0으로 잡히므로 계산하기 복잡)
+- float: none|left|right;
+ - none: default 값. 요소를 떠있게 하지 않음
+ - left: 왼쪽에 떠 있는 블록 박스를 생성. 
+ - right: 오픈쪽에 떠 있는 블록 박스를 생성.
+
+### 사용법
+```HTML
+(HTML)
+<div class="ex-layout">
+  <div class="menu">global menu</div>
+  <div class="main">
+    <div class="left-menu">left menu</div>
+    <div class="content">
+      <div class="article">article</div>
+      <div class="comment">comment</div>
+    </div>
+  </div>
+</div>
+```
+
+```CSS
+(CSS)
+.ex-layout{ height: 310px }
+.menu{
+  width: 300px;
+  height: 40px;
+  border: 2px solid #09c;
+  background-color: #d7f5ff;
+}
+.main .left-menu{
+  float: left;
+  width: 50px;
+  height: 254px;
+  border: 2px solid red;
+  background-color: #ffe7d5;
+}
+.main .content{
+  float: left;
+  width: 250px;
+  height: 250px;
+}
+.main .content .article{
+  height: 200px;
+  border: 2px solid blue;
+  background-color: #e2e9ff;
+}
+.main .content .comment{
+  height: 50px;
+  border: 2px solid purple;
+  background-color: #ffddff;
+}
+```
+
+결과물
+
+
+> [!NOTE]
+> <details>
+> <summary> clear: both </summary>
+>
+>float 속성의 문제점: float 속성을 이용해서 블록 요소를 강제로 띄워서 좌우로 배치하면, 부모 요소는 float 속성이 적용된 요소의 높이 값을 인식할 수 없음.
+> 해결법: 보이지 않는 block 요소를 마지막에 만들어서 clear:both를 적용하면, 부모 요소에 float의 영향을 해제해서 높잇값을 인식 가능.
+></details>
+
 ### Grid layout에서 사용되는 단위: fr
 - fr (fractional unit): 여유 공간을 비율로 나눠 설정. %와 비슷해 보일 수 있으나 실제로는 다름.
 
