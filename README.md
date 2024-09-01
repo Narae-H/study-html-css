@@ -250,7 +250,8 @@ display 속성으로, 익스플로러 11 이상에서 사용가능.
 ```
 
 ## float
-화면 큰 레이아웃 구상할 때 어느 부분에 고정된 요소 들이 있다면 float로 화면 구성 잡는게 좀 더 쉬움( position: absolute/fixed의 경우 부모가 position:relative라고 하더라도 width & height 이 자식 컨텐츠 만큼 가져올 수 없고 무조건 0으로 잡히므로 계산하기 복잡)
+가로로 block을 배치할 때 사용하는데 특히, 화면 큰 레이아웃 구상할 때 사용하는게 좋음.   
+만약에 어느 부분에 고정된 요소들(메뉴, 헤더)이 있다면 float로 화면 구성 잡는게 좀 더 쉬움( position: absolute/fixed의 경우 부모가 position:relative라고 하더라도 width & height 이 자식 컨텐츠 만큼 가져올 수 없고 무조건 0으로 잡히므로 계산하기 복잡)
 - float: none|left|right;
  - none: default 값. 요소를 떠있게 하지 않음
  - left: 왼쪽에 떠 있는 블록 박스를 생성. 
@@ -304,16 +305,18 @@ display 속성으로, 익스플로러 11 이상에서 사용가능.
 }
 ```
 
-결과물
-
+결과물   
+![layout_float](https://github.com/user-attachments/assets/ddf8c014-66d6-4c24-8dee-9da8bd675a13)
 
 > [!NOTE]
 > <details>
 > <summary> clear: both </summary>
 >
->float 속성의 문제점: float 속성을 이용해서 블록 요소를 강제로 띄워서 좌우로 배치하면, 부모 요소는 float 속성이 적용된 요소의 높이 값을 인식할 수 없음.
-> 해결법: 보이지 않는 block 요소를 마지막에 만들어서 clear:both를 적용하면, 부모 요소에 float의 영향을 해제해서 높잇값을 인식 가능.
-></details>
+> - float 속성의 문제점: float 속성을 이용해서 블록 요소를 강제로 띄워서 좌우로 배치하면, 부모 요소는 float 속성이 적용된 요소의 높이 값을 인식할 수 없음. 또는, 그 다음에 요소를 배치하였을 때, float 속성을 가진 block은 위에 떠 있으므로 그 자리에 다시 다음 요소를 배치함.   
+> - 해결법: float가 아닌 block요소에 clear: both 적용하여, 부모 요소에 float의 영향을 해제해서 높잇값을 인식. 아래 2개 중 하나 선택.
+>   - 1) HTML(float block 요소 다음에 block 추가): `<div style="clear: both"></div>`
+>   - 2) CSS(가상 선택자 사용하여 block 추가): `.parent-contaner::after { content: ''; display: block; clear: both;}`
+> </details>
 
 ### Grid layout에서 사용되는 단위: fr
 - fr (fractional unit): 여유 공간을 비율로 나눠 설정. %와 비슷해 보일 수 있으나 실제로는 다름.
