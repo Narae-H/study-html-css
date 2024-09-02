@@ -1,8 +1,8 @@
 :root {
   --na-blue: #494bb3;
-  --na-darkgrey: #343a40;
-  --na-grey: #808080;
-  --na-lightgrey: #ffffff;
+  --na-darkgrey: #808080;
+  --na-grey: #e8e8e8;
+  --na-lightgrey: #fafafa;
   --na-lightblue: #8dcfeb;
   --na-green: #40c95a;
   --na-yellow: #fecc59;
@@ -13,12 +13,16 @@ div {
 
 /* 큰 레이아웃 */
 #left-container {
+  position: absolute;
+  z-index: 999;
   float: left;
   width: 50px;
 }
 #right-container {
+  z-index: 899;
   float:left;
   width: calc(100% - 50px);
+  margin-left: 50px;
 }
 .na-container::after {
   content:'';
@@ -32,21 +36,27 @@ div {
   flex-direction: column;
   flex-wrap: wrap;
   align-content: center;
-  /* position: fixed;
+  position: fixed;
   top: 0;
-  left: 0; */
+  left: 0;
   width: inherit;
   height: 100%;
   background-color: var(--na-blue);
   padding: 10px;
+  transition: width 0.3s ease-in-out;
 }
-#left-navgit::after {
+#left-nav::after {
   content:'';
   display:block;
   clear: both;
 }
+#left-nav:hover {
+  width: 200px; 
+  align-items: start;
+}
 .na-nav-item {
   display: flex;
+  width: 70%;
   flex-wrap: wrap;
   padding: 10px;
   margin: 10px 0;
@@ -55,17 +65,39 @@ div {
   color: #fff;
   cursor: pointer;
 }
+#left-nav:hover .na-nav-item {
+  justify-content: start;}
 .na-nav-item i {
   font-size: 1.5em;
   color: var(--bs-white);
 }
+.na-nav-title {
+  position: absolute;
+  transform: translateX(-100px);
+}
+#left-nav:hover .na-nav-title {
+  color: var(--bs-white);
+  animation-name: ani-na-nav-title;
+  animation-duration: 0.3s;
+  animation-fill-mode: forwards;
+}
+
+@keyframes ani-na-nav-title{
+  0%{
+    transform: translateX(-100px);
+    animation-timing-function: cubic-bezier(1, 0.8, 0.5);
+  }
+  100%{
+    transform: translateX(50px);
+  }
+}
+
 
 
 /* Right Side: top menu, content */
 #right-container {
   flex-direction: column;
 }
-
 #header {
   display: flex;
   flex-wrap: wrap;
@@ -77,16 +109,28 @@ div {
   height: 70px;
   box-shadow: 1px -2px 4px 1px var(--na-grey);
 }
-
-#header div {
-  display: flex;
-}
 #header nav {
   width: 100%;
   background-color: var(--bs-white);
-} 
-.na-navbar-container {
+}
+
+#top-search {
   width: 200px;
+  transition: all 1s 
+}
+
+#top-search:focus {
+  width: 500px;
+}
+
+.na-collapse-menu {
+  display: flex;
+  justify-content: space-between;
+  align-content: center;
+}
+
+.na-navbar-container {
+  width: fit-content;
 }
 .na-navbar-container button {
   border-top-left-radius: 0;
@@ -107,7 +151,7 @@ div {
 #content-container {
   display: flex;
   flex-direction: column;
-  background-color: #FAFAFA;
+  background-color: var(--na-lightgrey);
   padding: 2em;
 }
 #content-container h3 {
@@ -120,13 +164,14 @@ div {
 
 .na-card {
   width: 100%;
-  height: 150px;
+  height: fit-content;
   flex-direction: row;
   flex-wrap: wrap;
   justify-content: center;
   align-content: center;
   background-color: var(--bs-white);
   padding: 10px 25px;
+  margin: 10px 0;
   border-radius: 10px;
 }
 .na-bs-grey {
@@ -164,7 +209,40 @@ div {
   flex-wrap: wrap;
 }
 .card-item {
-  color: var(--na-grey);
+  color: var(--na-darkgrey);
   font-size: 3em;
 }
 
+/* Bottom container */
+.bottom-container {
+  padding: 50px 10px;
+  margin: 0;
+}
+.na-fill-box-title {
+  width: 100%;
+  padding: 10px;
+  background-color: var(--na-lightgrey);
+  font-size: 1.5em;
+  text-align: left;
+}
+.na-fill-box-title.bb-grey {
+  border-bottom: 1px solid var(--na-grey);
+}
+
+.bottom-container .na-card {
+  padding: 0;
+  justify-content: start;
+  flex-wrap:nowrap;
+  flex-direction: column;
+}
+#myChart{
+  width: 100%;
+  height: auto;
+}
+#tasks .list-group {
+  width: 100%;
+  border: none;
+}
+
+/* @media screen and (max-width : 768px) { 
+ } */
