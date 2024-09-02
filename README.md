@@ -456,6 +456,64 @@ display 속성으로, 익스플로러 11 이상에서 사용가능.
   - translateY(100px) => y축으로 100px 이동
   - scale(0.2)        => 0.2배 키우기
   - skew(20deg)       => 비틀기
+
+> [!NOTE]
+> <details>
+> <summary>종이처럼 뒤집히는 프로필 사진 만들기</summary>
+>
+> 
+```HTML
+(HTML: 앞면, 뒷면 만들기)
+<div class="flip-outer">
+  <div class="flip-inner">
+    <img src="profile.png" class="front">
+    <div class="back">
+      <h4>개발자 김철용</h4>
+      <p>Frontend Developer</p>
+    </div>
+  </div>
+</div> 
+```
+
+```CSS
+(CSS)
+.flip-outer {
+  width: 300px;
+  height: 300px;
+}
+.flip-inner {
+  width: 100%;
+  height: 100%;
+  position: relative;
+}
+.front {
+  width: 100%;
+  position: absolute;
+  z-index : 1; 
+  backface-visibility: hidden; /* 뒷면 안보이게 처리 */
+}
+.back {
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  background-color: yellow;
+  border-radius: 50%;
+  transform: rotateY(180deg); /* 뒤집을때 바로 보이기 위해서 미리 뒤집어 놓음*/
+} 
+.flip-inner {
+  width: 100%;
+  height: 100%;
+  position: relative;
+  transition: all 1s;
+  transform-style: preserve-3d; /* 3d 실제 요소처럼 보이기 위해서*/
+}
+.flip-inner:hover {
+  transform: rotateY(180deg);
+} 
+```
+> </details>
+
+
   
 ### @keyframes   
 `@keyframes`를 transform과 같이 쓸 경우 복잡한 애니메이션 정의 가능. 예를 들면, 시작상태 -> 최종상태 -> 시작상태 -> 1초정지 -> 최종상태
@@ -658,8 +716,8 @@ Chrome 개발자도구 에서 Show user agent shdow DOM 활성화 하여 숨어�
 # CSS 단위
 - px: 픽셀
 - %: 퍼센트
-- vw: 현재 브라우저 폭에 비례
-- vh: 현재 브라우저 높이에 비례
+- vw: 현재 브라우저 폭에 비례 (position: absolute/fixed 같은 것 써서 현재 브라우저 전체 사이즈 못 불러올때 100vw 라고 쓰면 편함)
+- vh: 현재 브라우저 높이에 비례 (position: absolute/fixed 같은 것 써서 현재 브라우저 전체 사이즈 못 불러올때 100vh 라고 쓰면 편함)
 - rem: 상대적인 단위. html 태그 폰트 사이즈(default: 16px)의 10배. 요즘은 거의 안씀.
 - em: 내 폰트 사이즈의 x배
 
