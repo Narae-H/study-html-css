@@ -17,6 +17,7 @@ div {
   z-index: 999;
   float: left;
   width: 50px;
+  height: 100vh;
 }
 #right-container {
   z-index: 899;
